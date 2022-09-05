@@ -39,8 +39,8 @@ public final class ScannerFinderView extends RelativeLayout {
     private int mAngleThick;
     private int mAngleLength;
 
-    private Rect mFrameRect; //绘制的Rect
-    private Rect mRect; //返回的Rect
+    private Rect mFrameRect; //drawn Rect
+    private Rect mRect; //return Rect
 
     public ScannerFinderView(Context context) {
         this(context, null);
@@ -72,7 +72,7 @@ public final class ScannerFinderView extends RelativeLayout {
         if (isInEditMode()) {
             return;
         }
-        // 需要调用下面的方法才会执行onDraw方法
+        // The following method needs to be called to execute the onDraw method
         setWillNotDraw(false);
 
         if (mFrameRect == null) {
@@ -92,7 +92,7 @@ public final class ScannerFinderView extends RelativeLayout {
 
             int left = (ScrRes.x - width) / 2;
             int top = (ScrRes.y - height) / 5;
-            this.top = top; //记录初始距离上方距离
+            this.top = top; //Record the distance above the initial distance
 
             mFrameRect = new Rect(left, top, left + width, top + height);
             mRect = mFrameRect;
@@ -115,7 +115,7 @@ public final class ScannerFinderView extends RelativeLayout {
         int width = canvas.getWidth();
         int height = canvas.getHeight();
 
-        // 绘制焦点框外边的暗色背景
+        // Draw a dark background outside the focus box
         mPaint.setColor(mMaskColor);
         canvas.drawRect(0, 0, width, frame.top, mPaint);
         canvas.drawRect(0, frame.top, frame.left, frame.bottom + 1, mPaint);
@@ -135,17 +135,17 @@ public final class ScannerFinderView extends RelativeLayout {
      * @param rect
      */
     private void drawFocusRect(Canvas canvas, Rect rect) {
-        // 绘制焦点框（黑色）
+        // draw focus box (black)
         mPaint.setColor(mFrameColor);
-        // 上
+        // superior
         canvas.drawRect(rect.left + mAngleLength, rect.top, rect.right - mAngleLength, rect.top + mFocusThick, mPaint);
-        // 左
+        // left
         canvas.drawRect(rect.left, rect.top + mAngleLength, rect.left + mFocusThick, rect.bottom - mAngleLength,
                 mPaint);
-        // 右
+        // right
         canvas.drawRect(rect.right - mFocusThick, rect.top + mAngleLength, rect.right, rect.bottom - mAngleLength,
                 mPaint);
-        // 下
+        // Down
         canvas.drawRect(rect.left + mAngleLength, rect.bottom - mFocusThick, rect.right - mAngleLength, rect.bottom,
                 mPaint);
     }
@@ -165,16 +165,16 @@ public final class ScannerFinderView extends RelativeLayout {
         int top = rect.top;
         int right = rect.right;
         int bottom = rect.bottom;
-        // 左上角
+        // top left
         canvas.drawRect(left, top, left + mAngleLength, top + mAngleThick, mPaint);
         canvas.drawRect(left, top, left + mAngleThick, top + mAngleLength, mPaint);
-        // 右上角
+        // top right
         canvas.drawRect(right - mAngleLength, top, right, top + mAngleThick, mPaint);
         canvas.drawRect(right - mAngleThick, top, right, top + mAngleLength, mPaint);
-        // 左下角
+        // bottom left
         canvas.drawRect(left, bottom - mAngleLength, left + mAngleThick, bottom, mPaint);
         canvas.drawRect(left, bottom - mAngleThick, left + mAngleLength, bottom, mPaint);
-        // 右下角
+        // bottom right
         canvas.drawRect(right - mAngleLength, bottom - mAngleThick, right, bottom, mPaint);
         canvas.drawRect(right - mAngleThick, bottom - mAngleLength, right, bottom, mPaint);
     }
@@ -193,7 +193,7 @@ public final class ScannerFinderView extends RelativeLayout {
     }
 
     private void drawLaser(Canvas canvas, Rect rect) {
-        // 绘制焦点框内固定的一条扫描线
+        // Draw a scanline fixed within the focus box
         mPaint.setColor(mLaserColor);
         mPaint.setAlpha(SCANNER_ALPHA[mScannerAlpha]);
         mScannerAlpha = (mScannerAlpha + 1) % SCANNER_ALPHA.length;
@@ -257,28 +257,28 @@ public final class ScannerFinderView extends RelativeLayout {
                                     boolean XLeftRight = (currentX <= rect.right && currentX >= rect.left)
                                             || (lastX <= rect.right && lastX >= rect.left);
                                             
-                                        //右上角
+                                        //top right
                                     if (XLeft && YTop) { 
                                         updateBoxRect(2 * (lastX - currentX), (lastY - currentY), true); 
-                                        //左上角
+                                        //top left
                                     } else if (XRight && YTop) {
                                         updateBoxRect(2 * (currentX - lastX), (lastY - currentY), true);
-                                        //右下角
+                                        //bottom right
                                     } else if (XLeft && YBottom) {
                                         updateBoxRect(2 * (lastX - currentX), (currentY - lastY), false);
-                                        //左下角
+                                        //bottom left
                                     } else if (XRight && YBottom) {
                                         updateBoxRect(2 * (currentX - lastX), (currentY - lastY), false);
-                                        //左侧
+                                        //left
                                     } else if (XLeft && YTopBottom) { 
                                         updateBoxRect(2 * (lastX - currentX), 0, false);
-                                        //右侧
+                                        //Right
                                     } else if (XRight && YTopBottom) { 
                                         updateBoxRect(2 * (currentX - lastX), 0, false);
-                                        //上方
+                                        //above
                                     } else if (YTop && XLeftRight) { 
                                         updateBoxRect(0, (lastY - currentY), true);
-                                        //下方
+                                        //below
                                     } else if (YBottom && XLeftRight) {
                                         updateBoxRect(0, (currentY - lastY), false);
                                     }
@@ -291,9 +291,9 @@ public final class ScannerFinderView extends RelativeLayout {
                             lastY = currentY;
                             return true;
                         case MotionEvent.ACTION_UP:
-                            //移除之前的刷新
+                            //Remove previous refresh
                             mHandler.removeMessages(1);
-                            //松手时对外更新
+                            //External update when you let go
                             mRect = mFrameRect; 
                             lastX = -1;
                             lastY = -1;
@@ -314,7 +314,7 @@ public final class ScannerFinderView extends RelativeLayout {
         int newWidth = (mFrameRect.width() + dW > ScrRes.x - 4 || mFrameRect.width() + dW < MIN_FOCUS_BOX_WIDTH)
                 ? 0 : mFrameRect.width() + dW;
 
-        //限制扫描框最大高度不超过屏幕宽度
+        //Limit the maximum height of the scan box to no more than the width of the screen
         int newHeight = (mFrameRect.height() + dH > ScrRes.x || mFrameRect.height() + dH < MIN_FOCUS_BOX_HEIGHT)
                 ? 0 : mFrameRect.height() + dH;
 

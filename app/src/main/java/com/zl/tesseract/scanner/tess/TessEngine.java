@@ -37,9 +37,12 @@ public class TessEngine {
         Log.d(TAG, "Ended initialization of TessEngine");
         Log.d(TAG, "Running inspection on bitmap");
         tessBaseAPI.setImage(bitmap);
-        String inspection = tessBaseAPI.getHOCRText(0);
+//        String inspection = tessBaseAPI.getHOCRText(0);
+//        String inspection = tessBaseAPI.getBoxText(0);
+        String inspection = tessBaseAPI.getUTF8Text();
 
         Log.d(TAG, "Confidence values: " + tessBaseAPI.meanConfidence());
+        Log.d(TAG, "text_0cr: " + inspection);
         tessBaseAPI.end();
         System.gc();
         return Tools.getTelNum(inspection);

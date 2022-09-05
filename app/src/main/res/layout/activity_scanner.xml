@@ -12,9 +12,9 @@
     <TextView
         android:id="@+id/qr_code_header_bar"
         android:layout_width="match_parent"
-        android:gravity="center"
         android:layout_height="@dimen/title_bar_height"
         android:background="@android:color/black"
+        android:gravity="center"
         android:text="@string/title_activity_scan_qr_code"
         android:textColor="@color/white"
         android:textSize="18sp" />
@@ -55,10 +55,10 @@
 
     <Button
         android:id="@+id/bt"
-        android:text="@string/take_photos"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@id/switch1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_above="@id/switch1"
+        android:layout_centerHorizontal="true"
+        android:text="@string/take_photos" />
 
 </RelativeLayout>

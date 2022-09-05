@@ -169,7 +169,7 @@ public class Tools {
         return res;
     }
 
-    private static Pattern pattern = Pattern.compile("(1|861)\\d{10}$*");
+    private static Pattern pattern = Pattern.compile("(0|7)\\d{10}$*");
 
     private static StringBuilder bf = new StringBuilder();
 

@@ -170,7 +170,7 @@ public class ScannerActivity extends AppCompatActivity implements Callback, Came
                 }
                 CameraManager.get().closeDriver();
             } catch (Exception e) {
-                // 关闭摄像头失败的情况下,最好退出该Activity,否则下次初始化的时候会显示摄像头已占用.
+                // In the case of failure to close the camera, it is best to exit the Activity, otherwise the next initialization will show that the camera is occupied.
                 finish();
             }
         }
@@ -210,7 +210,7 @@ public class ScannerActivity extends AppCompatActivity implements Callback, Came
                 return;
             }
         } catch (IOException e) {
-            // 基本不会出现相机不存在的情况
+            // There is almost no situation where the camera does not exist
             Toast.makeText(this, getString(R.string.camera_not_found), Toast.LENGTH_SHORT).show();
             finish();
             return;
@@ -330,7 +330,7 @@ public class ScannerActivity extends AppCompatActivity implements Callback, Came
     private void phoneSucceed(String result, Bitmap bitmap){
         ImageDialog dialog = new ImageDialog(this);
         dialog.addBitmap(bitmap);
-        dialog.addTitle(TextUtils.isEmpty(result) ? "未识别到手机号码" : result);
+        dialog.addTitle(TextUtils.isEmpty(result) ? "Mobile number not recognized" : result);
         dialog.show();
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
@@ -352,7 +352,7 @@ public class ScannerActivity extends AppCompatActivity implements Callback, Came
                     phoneSucceed((String) msg.obj, bmp);
                     break;
                 case 1:
-                    Toast.makeText(ScannerActivity.this, "无法识别", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ScannerActivity.this, "not recognized", Toast.LENGTH_SHORT).show();
                     break;
                 default:
                     break;
@@ -365,7 +365,7 @@ public class ScannerActivity extends AppCompatActivity implements Callback, Came
             progressDialog = new ProgressDialog(this);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         }
-        progressDialog.setMessage("识别中...");
+        progressDialog.setMessage("Identifying...");
         progressDialog.setCancelable(true);
         progressDialog.show();
     }
